@@ -1,7 +1,7 @@
 import argparse
 import string
 
-from docx import Document
+import docx2txt
 
 parser = argparse.ArgumentParser()
 parser.add_argument('target', type=int,
@@ -19,8 +19,7 @@ def display(word_count, progress):
 
 
 def main():
-    document = Document(args.file_path)
-    full_text = " ".join([p.text for p in document.paragraphs])
+    full_text = docx2txt.process(args.file_path)
     punctuations = string.punctuation + "…“”"
     empty_string = ' ' * len(punctuations)
     translation_table = full_text.maketrans(punctuations, empty_string)
